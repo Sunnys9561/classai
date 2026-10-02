@@ -20,50 +20,6 @@ const quickQuestions = [
   "Demo lecture आहे का?",
 ];
 
-function getAIResponse(question, knowledge) {
-  const q = question.toLowerCase();
-
-  if (q.includes("course") || q.includes("कोर्स")) {
-    return `${knowledge.className} मध्ये ${knowledge.course} course available आहे.`;
-  }
-
-  if (
-    q.includes("fee") ||
-    q.includes("fees") ||
-    q.includes("फीस")
-  ) {
-    return `${knowledge.course} course ची fee ${knowledge.fees} आहे.`;
-  }
-
-  if (
-    q.includes("batch") ||
-    q.includes("start") ||
-    q.includes("सुरू") ||
-    q.includes("कधी")
-  ) {
-    return `Next batch ${knowledge.batch} पासून सुरू होते. Timing ${knowledge.timing} आहे.`;
-  }
-
-  if (
-    q.includes("location") ||
-    q.includes("where") ||
-    q.includes("कुठे") ||
-    q.includes("address")
-  ) {
-    return `Class location: ${knowledge.location}.`;
-  }
-
-  if (q.includes("demo") || q.includes("डेमो")) {
-    if (knowledge.demo === "Yes") {
-      return "हो 👍 Free demo lecture available आहे. तुम्ही खाली Book Free Demo वर click करू शकता.";
-    }
-
-    return "सध्या demo lecture available नाही.";
-  }
-
-  return `मी ${knowledge.className} बद्दल course, fees, batch, timing, location आणि demo याबद्दल माहिती देऊ शकतो.`;
-}
-
 function App() {
   const [knowledge, setKnowledge] = useState(defaultKnowledge);
 
@@ -75,6 +31,7 @@ function App() {
   ]);
 
   const [input, setInput] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
 
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [showSetup, setShowSetup] = useState(false);
@@ -299,28 +256,68 @@ function App() {
   /*
    * CHAT
    */
-  const sendMessage = (question = input) => {
+  const sendMessage = async (question = input) => {
     const text = question.trim();
 
-    if (!text) return;
-
-    const userMessage = {
-      type: "user",
-      text,
-    };
-
-    const aiMessage = {
-      type: "ai",
-      text: getAIResponse(text, knowledge),
-    };
+    if (!text || aiLoading) return;
 
     setMessages((prev) => [
       ...prev,
-      userMessage,
-      aiMessage,
+      {
+        type: "user",
+        text,
+      },
     ]);
 
     setInput("");
+    setAiLoading(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke(
+        "classai-chat",
+        {
+          body: {
+            question: text,
+            classInfo: {
+              class_name: knowledge.className,
+              course: knowledge.course,
+              fees: knowledge.fees,
+              batch: knowledge.batch,
+              timing: knowledge.timing,
+              location: knowledge.location,
+              demo: knowledge.demo,
+            },
+          },
+        }
+      );
+
+      if (error) {
+        console.error("ClassAI chat error:", error);
+        throw error;
+      }
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          type: "ai",
+          text:
+            data?.answer ||
+            "Sorry, I could not generate an answer right now.",
+        },
+      ]);
+    } catch (error) {
+      console.error("Gemini chat failed:", error);
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          type: "ai",
+          text: "Sorry, I’m having trouble answering right now. Please try again.",
+        },
+      ]);
+    } finally {
+      setAiLoading(false);
+    }
   };
 
   /*
