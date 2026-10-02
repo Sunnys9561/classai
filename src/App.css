@@ -1,0 +1,325 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: #f7f7f4;
+  color: #111;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.navbar {
+  height: 76px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e5df;
+  background: rgba(247, 247, 244, 0.9);
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.logo span {
+  color: #635bff;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-links a {
+  color: #555;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.nav-links button,
+.primary-btn {
+  border: 0;
+  background: #111;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.hero {
+  max-width: 1180px;
+  margin: auto;
+  padding: 90px 30px 110px;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 70px;
+  align-items: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 30px;
+  background: #eceaff;
+  color: #5148d8;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: clamp(48px, 6vw, 76px);
+  line-height: 0.98;
+  letter-spacing: -4px;
+  margin: 0;
+  max-width: 700px;
+}
+
+h1 span {
+  color: #635bff;
+}
+
+.hero-content > p {
+  max-width: 600px;
+  color: #666;
+  font-size: 18px;
+  line-height: 1.7;
+  margin: 28px 0;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.primary-btn {
+  background: #635bff;
+  padding: 14px 22px;
+}
+
+.secondary-btn {
+  padding: 14px 22px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.trust {
+  margin-top: 18px;
+  font-size: 12px;
+  color: #888;
+}
+
+.chat-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.08);
+}
+
+.chat-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+}
+
+.chat-header strong,
+.chat-header small {
+  display: block;
+}
+
+.chat-header small {
+  margin-top: 5px;
+  color: #888;
+}
+
+.online {
+  color: #1c9c58;
+  font-size: 12px;
+}
+
+.chat-body {
+  padding: 22px;
+  background: #fafafa;
+  min-height: 330px;
+}
+
+.message {
+  max-width: 85%;
+  padding: 13px 15px;
+  border-radius: 14px;
+  margin-bottom: 15px;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.student {
+  margin-left: auto;
+  background: #635bff;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.ai {
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-bottom-left-radius: 4px;
+}
+
+.demo-btn {
+  display: block;
+  margin-top: 12px;
+  border: 0;
+  background: #111;
+  color: white;
+  padding: 9px 13px;
+  border-radius: 8px;
+}
+
+.chat-input {
+  margin: 15px;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  color: #999;
+}
+
+.chat-input button {
+  border: 0;
+  background: #635bff;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.workflow,
+.faq {
+  max-width: 1100px;
+  margin: auto;
+  padding: 80px 30px;
+}
+
+.workflow {
+  border-top: 1px solid #e2e2dc;
+}
+
+.workflow small,
+.faq small {
+  color: #635bff;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+h2 {
+  font-size: 42px;
+  letter-spacing: -2px;
+  margin: 12px 0 45px;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.steps > div {
+  background: white;
+  border: 1px solid #e5e5df;
+  border-radius: 16px;
+  padding: 25px;
+}
+
+.steps b {
+  color: #635bff;
+}
+
+.steps p {
+  color: #777;
+  line-height: 1.6;
+}
+
+.faq {
+  border-top: 1px solid #e2e2dc;
+}
+
+.faq-list {
+  display: grid;
+  gap: 10px;
+}
+
+.faq-list button {
+  width: 100%;
+  text-align: left;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.faq-list p {
+  color: #666;
+  margin-bottom: 0;
+}
+
+.faq-list span {
+  font-size: 22px;
+}
+
+footer {
+  padding: 40px 7%;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  color: #777;
+}
+
+footer strong {
+  color: #111;
+}
+
+@media (max-width: 800px) {
+  .nav-links a {
+    display: none;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 55px;
+  }
+
+  h1 {
+    letter-spacing: -2px;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
